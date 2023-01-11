@@ -2,7 +2,7 @@
 title: "社会人がUoPeopleで学ぶという選択肢"
 emoji: "👻"
 type: "idea" # tech: 技術記事 / idea: アイデア
-topics: ["UoPeople","study"]
+topics: ["UoPeople","study","CS","社会人大学生"]
 published: true
 ---
 
@@ -10,6 +10,11 @@ published: true
 
 2022年6月、アメリカのオンライン大学 University of the People(UoPeople)に入学し、Computer Scienceの学位取得を目指して社会人大学生になりました。
 入学から最初のタームを振り返ってみます。
+
+## 私について
+
+物理学の学士を取得して卒業し、SIerにて社会人生活を開始しました。大学時代はCSやプログラムについて熱心に勉強をしていたわけではなく、あくまでいくつかの授業でPythonやCに触れたことがある程度でした。
+しかし、SEとして働く中でプログラミングやインフラ構築について触れるようになり、今後のキャリアの方向性をこの方向としたい思いが強まりました。
 
 ## コンピュータサイエンスをどのように身につけるか
 
