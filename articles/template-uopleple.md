@@ -1,5 +1,5 @@
 ---
-title: "UNIV1001"
+title: "template"
 emoji: ""
 type: "idea" # tech: 技術記事 / idea: アイデア
 topics: ["UoPeople","study","CS","社会人大学生"]
