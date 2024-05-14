@@ -1,5 +1,5 @@
 ---
-title: "競技プログラミングの鉄則 アルゴリズム力と思考力を高める77の技術"
+title: "【1章】競技プログラミングの鉄則 アルゴリズム力と思考力を高める77の技術"
 emoji: "💻"
 type: "idea" # tech: 技術記事 / idea: アイデア
 topics: ["AtCoder","study","CS",""]
@@ -20,7 +20,7 @@ published: true # true: published / false: unpublished
 
 変数の定義、入出力操作といった一番の基本処理を実施する問題。
 
-```c++
+```cpp
 #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
@@ -41,7 +41,7 @@ int main(){
 
 A01と同じく、入出力操作を行い条件を満たしているかを確認する問題。愚直に実施する場合は、vectorを用意するのではなく入力しながら変数Xと一致するものがあるか確認すれば良いが、今回はvectorへ挿入し、find関数で存在を確認する方針で実装を行なった。
 
-```c++
+```cpp
 #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
@@ -73,7 +73,7 @@ int main()
 
 二つのvectorに値を挿入し、全探索を行う問題。そのまま回答しても計算量は$O(N^2)$であり、TLEになることはないが、省略のため予めソートを行なった上で求める値より大きくなった場合は次のループに進むよう実装を行なった。
 
-```c++
+```cpp
 #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
@@ -121,7 +121,7 @@ int main()
 2. `bitset`関数を利用
 bitset関数は、任意の整数をbit変換、即ち2進数に変換することができる。変換したものをstring形に変換すれば、欲しい結果を得ることができる。
 
-```c++
+```cpp
 #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
@@ -151,7 +151,7 @@ int main()
 
 ループ処理を利用して前探索を行う問題。3重ループではTLEとなる可能性があるため、2重ループで判定を行なっていく。
 
-```c++
+```cpp
 #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
@@ -187,7 +187,7 @@ int main()
 
 A01と同じく、変数定義と入出力をしっかり実施できれば問題ない基本問題。
 
-```c++
+```cpp
 #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
@@ -210,7 +210,7 @@ int main()
 入力した数値A,Bの間に100の約数であるものが含まれるか確認する問題。約数の確認は`if(100%i==0)`で100をiで割った時にあまりが0となる場合、となる。
 また、個人的な実装の趣味で、途中で`return 0`をするのではなく、`return 0`は一箇所、結果出力箇所も極力1箇所、としている。
 
-```c++
+```cpp
 #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
@@ -241,7 +241,7 @@ int main()
 
 3重ループで実装すると、計算量が$O(N^3)$になってしまう。そのため、2重ループと二分探索を利用して計算量の改善を行なった。
 
-```c++
+```cpp
 #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
@@ -295,7 +295,7 @@ int main()
 
 10進数から2進数に変換する基本問題。
 
-```c++
+```cpp
 #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
