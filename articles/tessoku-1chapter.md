@@ -2,7 +2,7 @@
 title: "【1章】競技プログラミングの鉄則 アルゴリズム力と思考力を高める77の技術"
 emoji: "💻"
 type: "idea" # tech: 技術記事 / idea: アイデア
-topics: ["AtCoder","study","CS",""]
+topics: ["AtCoder","study","CS","競技プログラミング"]
 published: true # true: published / false: unpublished
 ---
 
