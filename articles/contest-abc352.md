@@ -2,7 +2,7 @@
 title: "AtCoder Beginner Contest 352 振り返り"
 emoji: "📒"
 type: "idea" # tech: 技術記事 / idea: アイデア
-topics: ["UoPeople","study","CS","社会人大学生"]
+topics: ["AtCoder","study","CS","競技プログラミング"]
 published: true # true: published / false: unpublished
 ---
 
