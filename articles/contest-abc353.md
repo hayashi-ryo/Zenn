@@ -14,7 +14,7 @@ published: true
 - B: 現在の乗客人数と次に乗ってくるグループの人数を利用して、何度定員を超えるのか数えていく。
 - C: 二つの数字を加算して出来上がる値を条件に基づいて数え上げていく問題。そのままやると二重ループでTLEしてしまう。
 
-## [A problem](https://atcoder.jp/contests/353/tasks/353_a)
+## [A problem](https://atcoder.jp/contests/abc353/tasks/353_a)
 
 一番左のビルの高さを基準に、それ以外のビルで高いものがあるかを判定する問題。特に難しい箇所もなく、配列に登録したあとH[0]とH[i]の比較を行っていけば問題ない。
 
@@ -49,7 +49,7 @@ int main()
 
 [提出結果](https://atcoder.jp/contests/abc353/submissions/53689917)
 
-## [B problem](https://atcoder.jp/contests/353/tasks/353_b)
+## [B problem](https://atcoder.jp/contests/abc353/tasks/353_b)
 
 K人のりのアトラクションについて、全てのグループを案内するために何度動かせば良いか考える問題。条件を分けて丁寧に動かす回数を数えていく。
 
@@ -96,7 +96,7 @@ int main()
 
 [提出結果](https://atcoder.jp/contests/abc353/submissions/53690548)
 
-## [C problem](https://atcoder.jp/contests/353/tasks/353_c)
+## [C problem](https://atcoder.jp/contests/abc353/tasks/353_c)
 
 条件をそのまま実装すると二重ループになり[TLEしてしまう](https://atcoder.jp/contests/abc353/submissions/53690268)。そのため、何らかの工夫が必要。今回は以下のような工夫を行った。
 
