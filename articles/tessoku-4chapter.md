@@ -576,65 +576,436 @@ int main()
 
 ## B問題
 
-### [B16 Frog 1]()
+### [B16 Frog 1](https://atcoder.jp/contests/tessoku-book/tasks/dp_a)
+
+この問題では、i番目の足場に到達するのにかかる最小コストを動的計画法で計算していく。i番目の足場に到達するためには、
+
+- `i-1 番目のマスまでのコスト+i-1番目からi番目までのコストの和`
+- `i-2 番目のマスまでのコスト+i-2番目からi番目までのコストの和`
+
+のうち、小さいものを計算していけば良い。
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+
+#define rep(i, x) for (int i = 0; i < (x); i++)
+
+const int DEFMAX = 1'000'000'000;
+int main()
+{
+  int N;
+  cin >> N;
+  vector<int> h(N + 1, 0);
+  rep(i, N) cin >> h[i + 1];
+
+  vector<int> dp(N + 1, DEFMAX);
+  dp[1] = 0;
+  dp[2] = abs(h[1] - h[2]);
+  for (int i = 3; i <= N; i++)
+  {
+    dp[i] = min(abs(h[i] - h[i - 2]) + dp[i - 2], abs(h[i] - h[i - 1]) + dp[i - 1]);
+  }
+
+  cout << dp[N] << endl;
+  return 0;
+}
+```
+
+[提出結果](https://atcoder.jp/contests/tessoku-book/submissions/57222984)
+
+### [B17 Frog 1 with Restoration](https://atcoder.jp/contests/tessoku-book/tasks/tessoku_book_cp)
+
+この問題では、[B16](#b16-frog-1)で回答した足場を逆順に辿っていく必要がある。そのため、回答配列を用意してNから1まで足場を探索していけば良い。
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+
+#define rep(i, x) for (int i = 0; i < (x); i++)
+const int DEFMAX = 1'000'000'000;
+int main()
+{
+  int N;
+  cin >> N;
+  vector<int> h(N + 1, 0);
+  rep(i, N) cin >> h[i + 1];
+
+  vector<int> dp(N + 1, DEFMAX);
+  dp[1] = 0;
+  dp[2] = abs(h[1] - h[2]);
+  for (int i = 3; i <= N; i++)
+  {
+    dp[i] = min(abs(h[i] - h[i - 2]) + dp[i - 2], abs(h[i] - h[i - 1]) + dp[i - 1]);
+  }
+
+  vector<int> ans;
+  int idx = N;
+  while (idx > 0)
+  {
+    ans.push_back(idx);
+    if (dp[idx] == dp[idx - 1] + abs(h[idx] - h[idx - 1]))
+    {
+      idx -= 1;
+    }
+    else
+    {
+      idx -= 2;
+    }
+  }
+
+  reverse(ans.begin(), ans.end());
+
+  cout << (int)ans.size() << endl;
+  for (int i = 0; i < (int)ans.size(); i++)
+  {
+    if (i != 0)
+    {
+      cout << " ";
+    }
+    cout << ans[i];
+  }
+
+  cout << endl;
+  return 0;
+}
+```
+
+[提出結果](https://atcoder.jp/contests/tessoku-book/submissions/57237599)
+
+### [B18 Subset Sum with Restoration](https://atcoder.jp/contests/tessoku-book/tasks/tessoku_book_cq)
+
+基本的な考え方は[B17](#b17-frog-1-with-restoration)と同様に、動的計画法によって計算を行った後に、辿った道のりを逆順で辿っていく。
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+
+#define rep(i, x) for (int i = 0; i < (x); i++)
+
+int main()
+{
+  int N, S;
+  cin >> N >> S;
+  vector<int> A(N + 1, 0);
+  rep(i, N) cin >> A[i + 1];
+
+  vector<vector<bool>> dp(N + 1, vector<bool>(S + 1, false));
+  dp[0][0] = true;
+  for (int i = 1; i <= N; i++)
+  {
+    for (int j = 0; j <= S; j++)
+    {
+      if (j < A[i]) // A_i を選択できない
+      {
+        dp[i][j] = dp[i - 1][j];
+      }
+      else
+      {
+        if (
+            dp[i - 1][j] == true ||     // A_i を選択しない
+            dp[i - 1][j - A[i]] == true // A_i を選択する
+        )
+        {
+          dp[i][j] = true;
+        }
+      }
+    }
+  }
+
+  // 整数の合計がSとなる方法がない場合
+  if (!dp[N][S])
+  {
+    cout << -1 << endl;
+    return 0;
+  }
+
+  vector<int> ans;
+  int total = S;
+  for (int i = N; i > 0; --i)
+  {
+    if (dp[i - 1][total])
+    {
+      continue;
+    }
+    ans.push_back(i);
+    total -= A[i];
+  }
+
+  sort(ans.begin(), ans.end());
+  cout << (int)ans.size() << endl;
+  for (int i = 0; i < (int)ans.size(); i++)
+  {
+    if (i != 0)
+    {
+      cout << " ";
+    }
+    cout << ans[i];
+  }
+  cout << endl;
+  return 0;
+}
+```
+
+[提出結果](https://atcoder.jp/contests/tessoku-book/submissions/57241018)
+
+### [B19 Knapsack 2](https://atcoder.jp/contests/tessoku-book/tasks/tessoku_book_cr)
 
 ```cpp
 ```
 
 [提出結果]()
 
-### [B17 Frog 1 with Restoration]()
+### [B20 Edit Distance](https://atcoder.jp/contests/tessoku-book/tasks/tessoku_book_cs)
+
+この問題では、編集距離(レーベンシュタイン距離)と呼ばれるものを求めていく。編集距離とは**2つの単語がどれくらい似ているかを表す量**のことを表す。詳細な内容については[参考サイト 具体例で学ぶ数学](https://mathwords.net/hensyukyori)を参照のこと。
 
 ```cpp
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+
+#define rep(i, x) for (int i = 0; i < (x); i++)
+
+int main()
+{
+  string sourceStr, targetStr;
+  cin >> sourceStr >> targetStr;
+  int sourceLen = (int)sourceStr.size(), targetLen = (int)targetStr.size();
+  vector<vector<int>> dp(targetLen + 1, vector<int>(sourceLen + 1, 0));
+  for (int i = 0; i <= targetLen; i++)
+  {
+    dp[i][0] = i;
+  }
+  for (int j = 0; j <= sourceLen; j++)
+  {
+    dp[0][j] = j;
+  }
+
+  for (int i = 1; i <= targetLen; i++)
+  {
+    for (int j = 1; j <= sourceLen; j++)
+    {
+      int cost = (sourceStr[j - 1] == targetStr[i - 1]) ? 0 : 1;
+      dp[i][j] = min(
+          {dp[i - 1][j] + 1,
+           dp[i][j - 1] + 1,
+           dp[i - 1][j - 1] + cost});
+    }
+  }
+
+  cout << dp[targetLen][sourceLen] << endl;
+
+  return 0;
+}
 ```
 
-[提出結果]()
+[提出結果](https://atcoder.jp/contests/tessoku-book/submissions/57597639)
 
-### [B18 Subset Sum with Restoration]()
+### [B21 Longest Subpalindrome](https://atcoder.jp/contests/tessoku-book/tasks/tessoku_book_cs)
+
+動的計画法によって文字列の部分文字列ごとの最長回文部分列を求める方針で回答していく。dpテーブルとしては`dp[l][r]`をl文字目からr文字目までの間で作ることができる最長回文部分列であると定義する。DPテーブル更新の考え方を以下で説明する。
+
+1. DPテーブルの定義
+  `dp[i][j]`: 文字列Sの区間`[i, j]`の間で作ることができる最長回文部分列の長さを示す。
+2. 初期条件
+  1文字区間(`i==j`)は回文であるため、`dp[i][i] = 1`と定義する。
+3. DPテーブル遷移の考え方
+  もし`S[i] == S[j]`ならば、`S[i]`と`S[j]`を両端に追加することで回文を作ることができる。よって、`dp[i][j]= dp[i+1][j-1]+2`となる。
+  もし`S[i] != S[j]`ならば、`S[i]`と`S[j]`のどちらかを削除して最長を計算する必要がある。よって、`dp[i][j]= max(dp[i+1][j], dp[i][j-1])`となる。
+4. 最終回答
+  `dp[0][N-1]`が文字列S全体で作ることができる最長回文文字列となる。
 
 ```cpp
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+
+#define rep(i, x) for (int i = 0; i < (x); i++)
+
+int main()
+{
+  int N;
+  string S;
+  cin >> N >> S;
+  vector<vector<int>> dp(N + 1, vector<int>(N + 1, 0));
+
+  // 1文字の区間はすべて長さ1の回文となる
+  for (int i = 0; i <= N; i++)
+  {
+    dp[i][i] = 1;
+  }
+
+  // 区間の長さが短いものから計算する
+  for (int LEN = 2; LEN <= N; ++LEN)
+  {
+    for (int i = 0; i <= N - LEN; ++i)
+    {
+      int j = i + LEN - 1;
+      if (S[i] == S[j])
+      {
+        dp[i][j] = dp[i + 1][j - 1] + 2;
+      }
+      else
+      {
+        dp[i][j] = max(dp[i + 1][j], dp[i][j - 1]);
+      }
+    }
+  }
+
+  cout << dp[0][N - 1] << endl;
+  return 0;
+}
 ```
 
-[提出結果]()
+[提出結果](https://atcoder.jp/contests/tessoku-book/submissions/57612540)
 
-### [B19 Knapsack 2]()
+### [B23 Traveling Salesman Problem](https://atcoder.jp/contests/tessoku-book/tasks/tessoku_book_cv)
+
+この問題は巡回セールスマン問題の一種。今回は、動的計画法とビットマスクを使用してすべてのとしを訪れて開始位置に戻るための最短距離を求めていく。DPテーブル更新の考え方を以下で説明する。
+
+1. 入力情報から、全都市間の距離をdist配列に保存する
+2. `dp[mask][i]`で、以下を管理する。
+  `mask`: 現在までの訪れた都市の集合をビットマスクで表現
+  `i`: 現時点で滞在している都市
+  `dp[mask][i]`: 現在までに訪れた都市の集合と現時点の滞在とし、またそこに至るまでの最短距離を保持
+3. 初期状態として`dp[1][0] = 0`を定義する。これは、都市0から開始して、現在都市0だけに訪れていることを表現している。
+4. ビットマスクと動的計画法によって、すべての経路を探索し各経路の最短距離を更新する。
+5. 最後に、すべての都市の訪問後、出発地点に戻るまでの最短距離を求めて出力する。
 
 ```cpp
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+
+#define rep(i, x) for (int i = 0; i < (x); i++)
+
+const double INF = numeric_limits<double>::infinity();
+
+// 2都市間の距離を計算
+double calcDistance(pair<int, int> city1, pair<int, int> city2)
+{
+  int dx = city1.first - city2.first;
+  int dy = city1.second - city2.second;
+  return sqrt(dx * dx + dy * dy);
+}
+
+int main()
+{
+  int N;
+  cin >> N;
+  vector<pair<int, int>> city(N);
+  vector<vector<double>> dist(N, vector<double>(N));
+  vector<vector<double>> dp(1 << N, vector<double>(N, INF));
+
+  // 都市の座標を入力
+  rep(i, N) cin >> city[i].first >> city[i].second;
+
+  // 各都市間の距離を計算
+  for (int i = 0; i < N; ++i)
+  {
+    for (int j = 0; j < N; ++j)
+    {
+      dist[i][j] = calcDistance(city[i], city[j]);
+    }
+  }
+
+  // 開始位置を設定（都市0をスタート地点と仮定）
+  dp[1][0] = 0;
+
+  // すべての経路を探索
+  for (int mask = 1; mask < (1 << N); ++mask)
+  {
+    for (int u = 0; u < N; ++u)
+    {
+      if (mask & (1 << u)) // u が訪問済みの場合
+      {
+        for (int v = 0; v < N; ++v)
+        {
+          if (!(mask & (1 << v))) // v が未訪問の場合
+          {
+            dp[mask | (1 << v)][v] = min(dp[mask | (1 << v)][v], dp[mask][u] + dist[u][v]);
+          }
+        }
+      }
+    }
+  }
+
+  // 全ての都市を訪問した後、最初の都市に戻る最短経路を計算
+  double ans = INF;
+  for (int i = 1; i < N; ++i)
+  {
+    ans = min(ans, dp[(1 << N) - 1][i] + dist[i][0]);
+  }
+
+  // 結果を出力
+  cout.precision(12);
+  cout << fixed << ans << endl;
+
+  return 0;
+}
 ```
 
-[提出結果]()
+[提出結果](https://atcoder.jp/contests/tessoku-book/submissions/57613086)
 
-### [B20 Edit Distance]()
+### [B24 Many Boxes](https://atcoder.jp/contests/tessoku-book/tasks/tessoku_book_cw)
+
+この問題は、箱をできるだけ多く重なるための最長増加部分列(LIS)を求める問題と似ている。そのため、LISの考え方によって計算を行なっていく。
+各箱は縦横の長さが与えられるため、一定の基準でソートした上でLISアルゴリズムを適用する方法が効率的である。
+
+具体的には、以下の方針で計算を行なった。
+
+1. 箱を縦の長さを基準として昇順にソートする。縦の長さが同じ場合は、横の長さの降順でソートする。これによって縦の長さが同じ箱を入れ子にすることを防ぐ
+2. 横の長さに注目してLISを計算する。この計算したLISが「箱を何重にできるか」を意味する。
 
 ```cpp
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+
+#define rep(i, x) for (int i = 0; i < (x); i++)
+
+bool compareBox(const pair<int, int> &a, const pair<int, int> &b)
+{
+  if (a.first == b.first)
+  {
+    return a.second > b.second;
+  }
+  return a.first < b.first;
+}
+
+int main()
+{
+  int N;
+  cin >> N;
+  vector<pair<int, int>> box(N);
+  rep(i, N) cin >> box[i].first >> box[i].second;
+
+  // 箱を縦の長さで昇順にソート
+  // もし縦の長さが同じ場合は、横の長さの降順でソート
+  sort(box.begin(), box.end(), compareBox);
+
+  vector<int> LIS;
+  for (int i = 0; i < N; i++)
+  {
+    int width = box[i].second;
+    auto it = lower_bound(LIS.begin(), LIS.end(), width);
+    if (it == LIS.end())
+    {
+      LIS.push_back(width);
+    }
+    else
+    {
+      LIS[it - LIS.begin()] = width;
+    }
+  }
+
+  cout << (int)LIS.size() << endl;
+  return 0;
+}
 ```
 
-[提出結果]()
-
-### [B21 Longest Subpalindrome]()
-
-```cpp
-```
-
-[提出結果]()
-
-### [B23 Traveling Salesman Problem]()
-
-```cpp
-```
-
-[提出結果]()
-
-### [B24 Many Boxes]()
-
-```cpp
-```
-
-[提出結果]()
-
-### [B26 Output Prime Numbers]()
-
-```cpp
-```
-
-[提出結果]()
+[提出結果](https://atcoder.jp/contests/tessoku-book/submissions/57613486)
