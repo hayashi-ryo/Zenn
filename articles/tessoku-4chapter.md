@@ -3,7 +3,7 @@ title: "【4章】競技プログラミングの鉄則 アルゴリズム力と�
 emoji: "💻"
 type: "idea" # tech: 技術記事 / idea: アイデア
 topics: ["AtCoder","study","CS","競技プログラミング"]
-published: false # true: published / false: unpublished
+published: true # true: published / false: unpublished
 ---
 
 # この記事について
