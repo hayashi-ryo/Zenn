@@ -3,7 +3,7 @@ title: "AtCoder Beginner Contest 363 振り返り"
 emoji: "📒"
 type: "idea"
 topics: ["AtCoder","study","CS","競技プログラミング"]
-published: false
+published: true
 ---
 
 # AtCoder Beginner Contest 363 振り返り
