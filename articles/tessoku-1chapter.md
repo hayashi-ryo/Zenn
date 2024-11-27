@@ -149,7 +149,7 @@ int main()
 
 ### [A05 Three Cards](https://atcoder.jp/contests/tessoku-book/tasks/tessoku_book_e)
 
-ループ処理を利用して前探索を行う問題。3重ループではTLEとなる可能性があるため、2重ループで判定を行なっていく。
+ループ処理を利用して全探索を行う問題。3重ループではTLEとなる可能性があるため、2重ループで判定を行なっていく。
 
 ```cpp
 #include <bits/stdc++.h>
